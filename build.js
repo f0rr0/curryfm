@@ -23,8 +23,6 @@ var lastfm = function lastfm(api_key, resource, name, method, params, callback) 
 	};
 	var paramStr = _ramda2.default.compose(_ramda2.default.reduce(add, ''), _ramda2.default.values, prependAndKeyEquals);
 	var queryStr = 'http://ws.audioscrobbler.com/2.0/?api_key=' + api_key + '&method=' + resource + '.' + method + '&' + resource + '=' + name + paramStr(params);
-	//console.log(queryStr);
-	var result = undefined;
 	_http2.default.get(queryStr, function (res) {
 		var body = '';
 		res.on('data', function (chunk) {
@@ -36,7 +34,6 @@ var lastfm = function lastfm(api_key, resource, name, method, params, callback) 
 	}).on('error', function (e) {
 		callback('Error: ' + e);
 	});
-	return result;
 };
 
 var curryfm = _ramda2.default.curry(lastfm);
