@@ -8,6 +8,10 @@ var _ramda = require('ramda');
 
 var _ramda2 = _interopRequireDefault(_ramda);
 
+var _http = require('http');
+
+var _http2 = _interopRequireDefault(_http);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var lastfm = function lastfm(api_key, resource, name, method, params, callback) {
@@ -21,7 +25,7 @@ var lastfm = function lastfm(api_key, resource, name, method, params, callback) 
 	var queryStr = 'http://ws.audioscrobbler.com/2.0/?api_key=' + api_key + '&method=' + resource + '.' + method + '&' + resource + '=' + name + paramStr(params);
 	//console.log(queryStr);
 	var result = undefined;
-	http.get(queryStr, function (res) {
+	_http2.default.get(queryStr, function (res) {
 		var body = '';
 		res.on('data', function (chunk) {
 			body += chunk;
