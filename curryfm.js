@@ -1,4 +1,5 @@
 import R from 'ramda';
+import http from 'http';
 
 const lastfm = (api_key, resource, name, method, params, callback) => {
 	const prependAndKeyEquals = R.mapObjIndexed((value, key, object) => `&${key}=${value}`);
