@@ -1,6 +1,6 @@
 {
   "name": "curryfm",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Curried Node wrapper around the public GET methods of Lastfm API",
   "main": "build.js",
   "scripts": {
@@ -14,9 +14,9 @@
     "lastfm",
     "curry"
   ],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/sidjain26/curryfm.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sidjain26/curryfm.git"
   },
   "author": "Siddharth Jain",
   "license": "ISC",
