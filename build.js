@@ -14,7 +14,7 @@ var _http2 = _interopRequireDefault(_http);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var lastfm = function lastfm(api_key, resource, name, method, params, callback) {
+var lastfm = function lastfm(api_key, resource, method, params, callback) {
 	var prependAndKeyEquals = _ramda2.default.mapObjIndexed(function (value, key, object) {
 		return '&' + key + '=' + value;
 	});
@@ -22,7 +22,7 @@ var lastfm = function lastfm(api_key, resource, name, method, params, callback) 
 		return a + b;
 	};
 	var paramStr = _ramda2.default.compose(_ramda2.default.reduce(add, ''), _ramda2.default.values, prependAndKeyEquals);
-	var queryStr = 'http://ws.audioscrobbler.com/2.0/?api_key=' + api_key + '&method=' + resource + '.' + method + '&' + resource + '=' + name + paramStr(params);
+	var queryStr = 'http://ws.audioscrobbler.com/2.0/?api_key=' + api_key + '&method=' + resource + '.' + method + paramStr(params);
 	_http2.default.get(queryStr, function (res) {
 		var body = '';
 		res.on('data', function (chunk) {
