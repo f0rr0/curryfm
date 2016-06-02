@@ -29,10 +29,10 @@ var lastfm = function lastfm(api_key, resource, method, params, callback) {
 			body += chunk;
 		});
 		res.on('end', function () {
-			callback(JSON.parse(body));
+			callback(JSON.parse(body), null);
 		});
-	}).on('error', function (e) {
-		callback('Error: ' + e);
+	}).on('error', function (err) {
+		callback(null, err);
 	});
 };
 
