@@ -1,6 +1,7 @@
 import R from 'ramda';
 import http from 'http';
 
+
 const lastfm = (api_key, resource, method, params, callback) => {
 	const prependAndKeyEquals = R.mapObjIndexed((value, key, object) => `&${key}=${value}`);
 	const add = (a, b) => a + b;
@@ -12,11 +13,11 @@ const lastfm = (api_key, resource, method, params, callback) => {
 				body += chunk;
 			});
 			res.on('end', () => {
-				callback(JSON.parse(body));
+				callback(JSON.parse(body), null);
 			});
 		})
-		.on('error', (e) => {
-			callback(`Error: ${e}`);
+		.on('error', (err) => {
+			callback(null, err);
 		});
 };
 
