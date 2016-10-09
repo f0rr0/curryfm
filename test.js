@@ -1,38 +1,34 @@
 import curryfm from './curryfm';
 import readjson from 'read-json-sync';
+import test from 'ava';
 
-const { api_key: API_KEY } = readjson("./secrets/lastfm-config.json");
-
+const { api_key: API_KEY } = readjson("./config.json");
 const client = curryfm(API_KEY);
-
-const userClient = client("user");
-const asrtistClient = client("artist");
-
-const userTopTracks = userClient("getTopTracks");
-const artistSimilar = asrtistClient("getSimilar");
-
-const log = (result, err) => {
- if (err) {
-  console.error(err);
- }
- else console.log(result);
-};
-
-let params = {
+const params = {
  user: "sidjain26",
  period: "7day",
  limit: 10,
  format: "json"
 };
 
-userTopTracks(params, log);
+test('api key is set for tests to run', t => {
+  t.true(typeof API_KEY === 'string');
+});
 
-params = {
-  artist: "Drake",
-  limit: 10,
-  format: "json"
-};
+test('wrapper is curried with arity of 4', t => {
+  t.plan(5);
+  t.is(typeof curryfm, 'function');
+  t.is(typeof curryfm(API_KEY), 'function');
+  t.is(typeof curryfm(API_KEY)("user"), 'function');
+  t.is(typeof curryfm(API_KEY)("user")("getTopTracks"), 'function');
+  t.is(typeof curryfm(API_KEY)("user")("getTopTracks")(params).then, 'function');
+});
 
-artistSimilar(params, log);
-
-curryfm(API_KEY, "album", "search", {album: "Songs About Jane", limit: 10, format: "json"}, log);
+test('returns relevant object when promise resolved/rejected', async t => {
+  try {
+    const result = await curryfm('API_KEY')("user")("getTopTracks")(params);
+    t.true(result.hasOwnProperty('toptracks') || result.hasOwnProperty('message'));
+  } catch (err) {
+    t.true(err.hasOwnProperty('code'));
+  }
+});
