@@ -5,7 +5,8 @@
   "main": "build.js",
   "scripts": {
     "test": "ava --verbose test.js",
-    "build": "./node_modules/.bin/babel curryfm.js --out-file build.js"
+    "build": "./node_modules/.bin/babel curryfm.js --out-file build.js",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "lastfm",
