@@ -1,6 +1,6 @@
 {
   "name": "curryfm",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Curried Node wrapper around the public GET methods of Lastfm API",
   "main": "build.js",
   "scripts": {
