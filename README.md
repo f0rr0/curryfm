@@ -7,14 +7,19 @@ Uses Ramda, Babel and ES6.
 npm install --save curryfm;
 ```
 
-Then package exports a default curried function which takes 5 arguments:
-`api_key`, `resource`, `method`, `params` and `callback`. Check [LastFM docs](http://www.last.fm/api) for all more info regarding these arguments.
+Then package exports a default curried function which takes 4 arguments:
+* `api_key`
+* `resource` - (one of 'user', 'track', 'artist', 'album' etc.)
+* `method` - (method called on resource e.g. 'getTopTracks', 'getInfo' etc.)
+* `params`
+
+Check [LastFM docs](http://www.last.fm/api) for info regarding these arguments. The function finally returns a `Promise`.
 
 ```javascript
 import curryfm from 'curryfm';
 import readjson from 'read-json-sync';
 
-const { api_key: API_KEY } = readjson("./secrets/lastfm-config.json");
+const { api_key: API_KEY } = readjson("./config.json");
 
 const client = curryfm(API_KEY);
 
@@ -24,11 +29,12 @@ const asrtistClient = client("artist");
 const userTopTracks = userClient("getTopTracks");
 const artistSimilar = asrtistClient("getSimilar");
 
-const log = (result, err) => {
- if (err) {
-  console.error(err);
- }
- else console.log(result);
+const log = async (method, params) => {
+  try {
+    console.log(await method(params));
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 let params = {
@@ -38,7 +44,7 @@ let params = {
  format: "json"
 };
 
-userTopTracks(params, log);
+log(userTopTracks, params);
 
 params = {
   artist: "Drake",
@@ -46,7 +52,9 @@ params = {
   format: "json"
 };
 
-artistSimilar(params, log);
+log(artistSimilar, params);
 
-curryfm(API_KEY, "album", "search", {album: "Songs About Jane", limit: 10}, log); // Alternatively you can call the function with all arguments
+curryfm(API_KEY, "album", "search", {album: "Songs About Jane", limit: 10}).then((result) => {
+  console.log(result);
+}); // Alternatively you can call the function with all arguments
 ```
