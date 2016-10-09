@@ -1,4 +1,4 @@
-# curryfm
+# :curry: curryfm
 Curried Node wrapper around the public GET methods of Lastfm API.
 Uses Ramda, Babel and ES6.
 
