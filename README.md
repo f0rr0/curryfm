@@ -1,4 +1,7 @@
 # :curry: curryfm
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/f0rr0/curryfm.svg)](https://greenkeeper.io/)
+
 Curried Node wrapper around the public GET methods of Lastfm API.
 Uses Ramda, Babel and ES6.
 
